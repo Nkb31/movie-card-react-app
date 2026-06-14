@@ -1,7 +1,11 @@
 import "../css/MovieCard.css";
+import { useMovieContexts } from "../contexts/useMovieContext";
 function Mc({ movie }) {
+  const { addFavorite } = useMovieContexts();
+
   function Onclicks() {
-    alert("Added to Favourites");
+    addFavorite(movie);
+     alert("Added to Favourites");
   }
   return (
     <div className="Card">
@@ -13,7 +17,7 @@ function Mc({ movie }) {
       </div>
       <div className="Icon">
         <button className="search" onClick={Onclicks}>
-          🤞🏼
+          ❤️
         </button>
       </div>
       <div className="Info">
