@@ -19,14 +19,18 @@ function Home() {
     loadPopularMovies();
   }, []);
 
+  const normalizedQuery = searchQ.trim().toLowerCase();
+  const filteredMovies = movies.filter((mov) =>
+    mov.title?.toLowerCase().includes(normalizedQuery),
+  );
+
   return (
     <div className="Homepg">
       <div className="Mcard">
-        {movies.map(
-          (mov) =>
-            mov.title.toLowerCase().startsWith(searchQ) && (
-              <Mc movie={mov} key={mov.id} />
-            ),
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map((mov) => <Mc movie={mov} key={mov.id} />)
+        ) : (
+          <div className="NoResults">No movies found for that search.</div>
         )}
         <form onSubmit={(e) => e.preventDefault()}>
           <input
@@ -43,5 +47,3 @@ function Home() {
 }
 
 export default Home;
-
-

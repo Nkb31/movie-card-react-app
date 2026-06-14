@@ -18,7 +18,7 @@ function Mc({ movie }) {
       </div>
       <div className="Info">
         <h2>{movie.title}</h2>
-        <h4>{movie.description}</h4>
+        <h4>{movie.overview}</h4>
       </div>
     </div>
   );
