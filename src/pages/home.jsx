@@ -6,6 +6,7 @@ import { getPopularMovies, searchMovies } from "../service/api";
 function Home() {
   const [searchQ, setSearchQ] = useState("");
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -21,18 +22,20 @@ function Home() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-
-    if (!searchQ.trim()) {
-      const popularMovies = await getPopularMovies();
-      setMovies(popularMovies);
-      return;
-    }
+    setLoading(true);
 
     try {
-      const results = await searchMovies(searchQ);
-      setMovies(results);
+      if (!searchQ.trim()) {
+        const popularMovies = await getPopularMovies();
+        setMovies(popularMovies);
+      } else {
+        const results = await searchMovies(searchQ);
+        setMovies(results);
+      }
     } catch (error) {
       console.error("Search failed", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,13 +51,17 @@ function Home() {
         <button type="submit">Search</button>
       </form>
 
-      <div className="Mcard">
-        {movies.length > 0 ? (
-          movies.map((mov) => <Mc movie={mov} key={mov.id} />)
-        ) : (
-          <div className="NoResults">No movies found for that search.</div>
-        )}
-      </div>
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="Mcard">
+          {movies.length > 0 ? (
+            movies.map((mov) => <Mc movie={mov} key={mov.id} />)
+          ) : (
+            <div className="NoResults">No movies found for that search.</div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

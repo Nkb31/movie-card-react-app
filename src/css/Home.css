@@ -64,8 +64,8 @@
 .search-form {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 12px;
+  margin: 25px 0;
 }
 
 .search-form input {
@@ -76,4 +76,26 @@
 .search-form button {
   padding: 10px 20px;
   cursor: pointer;
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.search-form input {
+  width: 350px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.search-form button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
