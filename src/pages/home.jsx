@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Mc from "../components/Card";
 import "../css/Home.css";
-import { getPopularMovies } from "../service/api";
+import { getPopularMovies, searchMovies } from "../service/api";
 
 function Home() {
   const [searchQ, setSearchQ] = useState("");
@@ -19,14 +19,26 @@ function Home() {
     loadPopularMovies();
   }, []);
 
-  const normalizedQuery = searchQ.trim().toLowerCase();
-  const filteredMovies = movies.filter((mov) =>
-    mov.title?.toLowerCase().includes(normalizedQuery),
-  );
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    if (!searchQ.trim()) {
+      const popularMovies = await getPopularMovies();
+      setMovies(popularMovies);
+      return;
+    }
+
+    try {
+      const results = await searchMovies(searchQ);
+      setMovies(results);
+    } catch (error) {
+      console.error("Search failed", error);
+    }
+  };
 
   return (
     <div className="Homepg">
-      <form className="search-form" onSubmit={(e) => e.preventDefault()}>
+      <form className="search-form" onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="MOVIE name"
@@ -37,8 +49,8 @@ function Home() {
       </form>
 
       <div className="Mcard">
-        {filteredMovies.length > 0 ? (
-          filteredMovies.map((mov) => <Mc movie={mov} key={mov.id} />)
+        {movies.length > 0 ? (
+          movies.map((mov) => <Mc movie={mov} key={mov.id} />)
         ) : (
           <div className="NoResults">No movies found for that search.</div>
         )}
