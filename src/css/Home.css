@@ -1,19 +1,19 @@
-.home {
+.Homepg {
   padding: 2rem 0;
   width: 100%;
   box-sizing: border-box;
 }
 
-.search-form {
+.Homepg form {
   max-width: 600px;
-  margin: 0 auto 2rem;
+  margin: 2rem auto 0;
   display: flex;
   gap: 1rem;
   padding: 0 1rem;
   box-sizing: border-box;
 }
 
-.search-input {
+.Homepg input {
   flex: 1;
   padding: 0.75rem 1rem;
   border: none;
@@ -23,12 +23,12 @@
   font-size: 1rem;
 }
 
-.search-input:focus {
+.Homepg input:focus {
   outline: none;
   box-shadow: 0 0 0 2px #666;
 }
 
-.search-button {
+.Homepg button {
   padding: 0.75rem 1.5rem;
   background-color: #e50914;
   color: white;
@@ -36,24 +36,24 @@
   font-weight: 500;
   transition: background-color 0.2s;
   white-space: nowrap;
+  border: none;
 }
 
-.search-button:hover {
+.Homepg button:hover {
   background-color: #f40612;
 }
 
-
 @media (max-width: 639px) {
-  .home {
+  .Homepg {
     padding: 1rem 0;
   }
 
-  .search-form {
+  .Homepg form {
     margin-bottom: 1rem;
   }
 }
 
-.movies-grid {
+.Mcard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
