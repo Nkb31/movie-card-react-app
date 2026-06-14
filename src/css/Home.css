@@ -61,3 +61,19 @@
   width: 100%;
   box-sizing: border-box;
 }
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-form input {
+  width: 300px;
+  padding: 10px;
+}
+
+.search-form button {
+  padding: 10px 20px;
+  cursor: pointer;
+}

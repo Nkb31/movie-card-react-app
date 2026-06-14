@@ -26,21 +26,22 @@ function Home() {
 
   return (
     <div className="Homepg">
+      <form className="search-form" onSubmit={(e) => e.preventDefault()}>
+        <input
+          type="text"
+          placeholder="MOVIE name"
+          value={searchQ}
+          onChange={(e) => setSearchQ(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
+
       <div className="Mcard">
         {filteredMovies.length > 0 ? (
           filteredMovies.map((mov) => <Mc movie={mov} key={mov.id} />)
         ) : (
           <div className="NoResults">No movies found for that search.</div>
         )}
-        <form onSubmit={(e) => e.preventDefault()}>
-          <input
-            type="text"
-            placeholder="MOVIE name"
-            value={searchQ}
-            onChange={(e) => setSearchQ(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
       </div>
     </div>
   );
