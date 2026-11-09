@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Mc from "../components/Card";
 import "../css/Home.css";
 import { buildImageUrl, getPopularMovies, searchMovies } from "../service/api";
@@ -7,6 +7,8 @@ function Home() {
   const [searchQ, setSearchQ] = useState("");
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const loadPopularMovies = async () => {
@@ -25,9 +27,8 @@ function Home() {
     loadPopularMovies();
   }, []);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    const trimmedQuery = searchQ.trim();
+  const runSearch = async (query) => {
+    const trimmedQuery = query.trim();
     setLoading(true);
 
     try {
@@ -40,7 +41,76 @@ function Home() {
     }
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const selectedMovie = recommendations[activeSuggestionIndex];
+
+    if (selectedMovie && searchQ.trim()) {
+      setSearchQ(selectedMovie.title);
+      await runSearch(selectedMovie.title);
+      return;
+    }
+
+    await runSearch(searchQ);
+  };
+
+  const handleSuggestionClick = async (title) => {
+    setSearchQ(title);
+    setActiveSuggestionIndex(-1);
+    await runSearch(title);
+    inputRef.current?.focus();
+  };
+
+  const handleKeyDown = (e) => {
+    if (!recommendations.length) {
+      return;
+    }
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveSuggestionIndex((prev) => (prev + 1) % recommendations.length);
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveSuggestionIndex((prev) => (prev <= 0 ? recommendations.length - 1 : prev - 1));
+    }
+
+    if (e.key === "Enter" && activeSuggestionIndex >= 0) {
+      e.preventDefault();
+      const selectedMovie = recommendations[activeSuggestionIndex];
+      if (selectedMovie) {
+        handleSuggestionClick(selectedMovie.title);
+      }
+    }
+  };
+
+  const recommendations = useMemo(() => {
+    const query = searchQ.trim().toLowerCase();
+
+    if (!query) {
+      return movies.slice(0, 5);
+    }
+
+    const startsWithMatches = movies.filter((movie) =>
+      movie.title.toLowerCase().startsWith(query),
+    );
+    const containsMatches = movies.filter(
+      (movie) =>
+        movie.title.toLowerCase().includes(query) &&
+        !movie.title.toLowerCase().startsWith(query),
+    );
+
+    return [...startsWithMatches, ...containsMatches].slice(0, 5);
+  }, [movies, searchQ]);
+
   const featuredMovie = useMemo(() => movies[0] ?? null, [movies]);
+
+  useEffect(() => {
+    if (!searchQ.trim()) {
+      setActiveSuggestionIndex(-1);
+    }
+  }, [searchQ]);
 
   return (
     <div className="Homepg">
@@ -52,13 +122,40 @@ function Home() {
           </p>
 
           <form className="search-form" onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search for a movie"
-              value={searchQ}
-              onChange={(e) => setSearchQ(e.target.value)}
-              aria-label="Search for movies"
-            />
+            <div className="search-input-wrap">
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Search for a movie"
+                value={searchQ}
+                onChange={(e) => {
+                  setSearchQ(e.target.value);
+                  setActiveSuggestionIndex(-1);
+                }}
+                onKeyDown={handleKeyDown}
+                aria-label="Search for movies"
+              />
+
+              {recommendations.length > 0 ? (
+                <div className="search-recommendations" aria-live="polite">
+                  {searchQ.trim() ? null : (
+                    <span className="search-suggestion search-suggestion--muted">Trending matches</span>
+                  )}
+
+                  {recommendations.map((movie, index) => (
+                    <button
+                      key={movie.id}
+                      type="button"
+                      className={`search-suggestion ${index === activeSuggestionIndex ? "search-suggestion--active" : ""}`}
+                      onClick={() => handleSuggestionClick(movie.title)}
+                    >
+                      {movie.title}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
             <button type="submit">Search</button>
           </form>
         </div>

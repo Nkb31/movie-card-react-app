@@ -93,6 +93,10 @@ describe("movie app", () => {
     const input = await screen.findByLabelText(/search for movies/i);
     await user.clear(input);
     await user.type(input, "quiet");
+
+    const suggestionButtons = await screen.findAllByRole("button", { name: /the quiet harbor/i });
+    expect(suggestionButtons.length).toBeGreaterThan(0);
+
     await user.click(screen.getByRole("button", { name: /search/i }));
 
     const quietResults = await screen.findAllByText(/the quiet harbor/i);
