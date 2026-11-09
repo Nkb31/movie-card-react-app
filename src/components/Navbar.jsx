@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../css/Navbar.css";
 import { useMovieContexts } from "../contexts/useMovieContext";
 
@@ -7,20 +7,31 @@ function Nav() {
 
   return (
     <header className="topbar">
-      <Link to="/" className="brand" aria-label="CineVerse home">
+      <NavLink to="/" className="brand" aria-label="CineVerse home">
         <span className="brand-mark">C</span>
         CineVerse
-      </Link>
+      </NavLink>
 
       <nav className="navbar" aria-label="Main navigation">
-        <Link to="/">Home</Link>
-        <Link to="/Favourites">Favourites</Link>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "nav-link nav-link--active" : "nav-link")}
+          end
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/favorites"
+          className={({ isActive }) => (isActive ? "nav-link nav-link--active" : "nav-link")}
+        >
+          Favorites
+        </NavLink>
       </nav>
 
-      <Link to="/Favourites" className="favorites-pill" aria-label="Favorite movies">
+      <NavLink to="/favorites" className="favorites-pill" aria-label="Favorite movies">
         Favorites
         {favorites.length > 0 ? <span>{favorites.length}</span> : null}
-      </Link>
+      </NavLink>
     </header>
   );
 }

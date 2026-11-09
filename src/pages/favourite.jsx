@@ -6,10 +6,9 @@ function Fav() {
   const { favorites, removeFavorite } = useMovieContexts();
 
   return (
-    <div className="favorites-page">
+    <div className="favorites-page" aria-live="polite">
       <header className="favorites-header">
         <div>
-          <p className="eyebrow">Your watchlist</p>
           <h1>My Favorites</h1>
         </div>
         <span>{favorites.length} saved</span>

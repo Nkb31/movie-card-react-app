@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Mc from "../components/Card";
 import "../css/Home.css";
-import { getPopularMovies, searchMovies, buildImageUrl } from "../service/api";
+import { buildImageUrl, getPopularMovies, searchMovies } from "../service/api";
 
 function Home() {
   const [searchQ, setSearchQ] = useState("");
@@ -27,13 +27,11 @@ function Home() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    const trimmedQuery = searchQ.trim();
     setLoading(true);
 
     try {
-      const results = searchQ.trim()
-        ? await searchMovies(searchQ)
-        : await getPopularMovies();
-
+      const results = trimmedQuery ? await searchMovies(trimmedQuery) : await getPopularMovies();
       setMovies(results);
     } catch {
       setMovies([]);
@@ -42,13 +40,12 @@ function Home() {
     }
   };
 
-  const featuredMovie = movies[0];
+  const featuredMovie = useMemo(() => movies[0] ?? null, [movies]);
 
   return (
     <div className="Homepg">
       <section className="hero-panel">
         <div className="hero-copy">
-          <p className="eyebrow">Trending this week</p>
           <h1>Find your next favorite film.</h1>
           <p className="hero-text">
             Discover standout stories, cult classics, and new releases curated for your next movie night.
@@ -77,10 +74,9 @@ function Home() {
         ) : null}
       </section>
 
-      <section className="catalogue-section">
+      <section className="catalogue-section" aria-live="polite">
         <div className="section-header">
           <div>
-            <p className="eyebrow">Featured picks</p>
             <h2>Browse the spotlight</h2>
           </div>
           <span>{movies.length} titles</span>

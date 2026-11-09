@@ -1,8 +1,8 @@
 import "./css/App.css";
-import Home from "./pages/home";
-import { Route, Routes } from "react-router-dom";
-import Fav from "./pages/favourite";
 import Nav from "./components/Navbar";
+import Fav from "./pages/favourite";
+import Home from "./pages/home";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
@@ -11,7 +11,9 @@ function App() {
       <main className="Mainc">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Favourites" element={<Fav />} />
+          <Route path="/favorites" element={<Fav />} />
+          <Route path="/Favourites" element={<Navigate to="/favorites" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </div>

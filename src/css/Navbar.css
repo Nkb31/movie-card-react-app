@@ -11,7 +11,7 @@
   padding: 1rem clamp(1rem, 3vw, 2rem);
   border-bottom: 1px solid rgba(148, 163, 184, 0.18);
   background: rgba(9, 14, 24, 0.8);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
 }
 
 .brand {
@@ -31,7 +31,7 @@
   height: 2rem;
   border-radius: 0.7rem;
   background: linear-gradient(135deg, #8b5cf6, #ec4899);
-  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
 }
 
 .navbar {
@@ -40,7 +40,7 @@
   gap: 0.5rem;
 }
 
-.navbar a,
+.nav-link,
 .favorites-pill {
   display: inline-flex;
   align-items: center;
@@ -50,14 +50,20 @@
   border-radius: 999px;
   color: rgba(226, 232, 240, 0.82);
   font-weight: 600;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
-.navbar a:hover,
+.nav-link:hover,
 .favorites-pill:hover {
   background: rgba(148, 163, 184, 0.08);
   color: #fff;
   transform: translateY(-1px);
+}
+
+.nav-link--active {
+  background: rgba(139, 92, 246, 0.12);
+  color: #f5f3ff;
+  border: 1px solid rgba(167, 139, 250, 0.25);
 }
 
 .favorites-pill {
