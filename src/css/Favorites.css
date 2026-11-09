@@ -1,29 +1,61 @@
-div {
-  padding: 2rem;
+.favorites-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   width: 100%;
-  box-sizing: border-box;
 }
 
-h1 {
-  margin-bottom: 2rem;
+.favorites-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.favorites-header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.1;
+}
+
+.favorites-header span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+  color: #bbf7d0;
+  font-weight: 700;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 260px;
+  border-radius: 24px;
+  border: 1px dashed rgba(148, 163, 184, 0.3);
+  background: rgba(15, 23, 42, 0.4);
   text-align: center;
-  font-size: 2.5rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
 }
 
-/* Animation for new favorites being added */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.empty-state h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
-.Mcard > * {
-  animation: fadeIn 0.3s ease-out forwards;
+.empty-state p {
+  max-width: 32rem;
+  margin: 0;
+  color: rgba(203, 213, 225, 0.8);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .favorites-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

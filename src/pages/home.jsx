@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Mc from "../components/Card";
 import "../css/Home.css";
-import { getPopularMovies, searchMovies } from "../service/api";
+import { getPopularMovies, searchMovies, buildImageUrl } from "../service/api";
 
 function Home() {
   const [searchQ, setSearchQ] = useState("");
@@ -10,13 +10,18 @@ function Home() {
 
   useEffect(() => {
     const loadPopularMovies = async () => {
+      setLoading(true);
+
       try {
         const popularMovies = await getPopularMovies();
         setMovies(popularMovies);
       } catch {
-        console.error("Failed to load movies");
+        setMovies([]);
+      } finally {
+        setLoading(false);
       }
     };
+
     loadPopularMovies();
   }, []);
 
@@ -25,43 +30,74 @@ function Home() {
     setLoading(true);
 
     try {
-      if (!searchQ.trim()) {
-        const popularMovies = await getPopularMovies();
-        setMovies(popularMovies);
-      } else {
-        const results = await searchMovies(searchQ);
-        setMovies(results);
-      }
-    } catch (error) {
-      console.error("Search failed", error);
+      const results = searchQ.trim()
+        ? await searchMovies(searchQ)
+        : await getPopularMovies();
+
+      setMovies(results);
+    } catch {
+      setMovies([]);
     } finally {
       setLoading(false);
     }
   };
 
+  const featuredMovie = movies[0];
+
   return (
     <div className="Homepg">
-      <form className="search-form" onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="MOVIE name"
-          value={searchQ}
-          onChange={(e) => setSearchQ(e.target.value)}
-        />
-        <button type="submit">Search</button>
-      </form>
+      <section className="hero-panel">
+        <div className="hero-copy">
+          <p className="eyebrow">Trending this week</p>
+          <h1>Find your next favorite film.</h1>
+          <p className="hero-text">
+            Discover standout stories, cult classics, and new releases curated for your next movie night.
+          </p>
 
-      {loading ? (
-        <div className="loading">Loading...</div>
-      ) : (
-        <div className="Mcard">
-          {movies.length > 0 ? (
-            movies.map((mov) => <Mc movie={mov} key={mov.id} />)
-          ) : (
-            <div className="NoResults">No movies found for that search.</div>
-          )}
+          <form className="search-form" onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search for a movie"
+              value={searchQ}
+              onChange={(e) => setSearchQ(e.target.value)}
+              aria-label="Search for movies"
+            />
+            <button type="submit">Search</button>
+          </form>
         </div>
-      )}
+
+        {featuredMovie ? (
+          <div className="hero-poster">
+            <img src={buildImageUrl(featuredMovie.poster_path)} alt={featuredMovie.title} />
+            <div className="hero-poster__badge">
+              <span>Now playing</span>
+              <strong>{featuredMovie.title}</strong>
+            </div>
+          </div>
+        ) : null}
+      </section>
+
+      <section className="catalogue-section">
+        <div className="section-header">
+          <div>
+            <p className="eyebrow">Featured picks</p>
+            <h2>Browse the spotlight</h2>
+          </div>
+          <span>{movies.length} titles</span>
+        </div>
+
+        {loading ? (
+          <div className="loading-state">Loading movies...</div>
+        ) : movies.length > 0 ? (
+          <div className="Mcard">
+            {movies.map((mov) => (
+              <Mc movie={mov} key={mov.id} />
+            ))}
+          </div>
+        ) : (
+          <div className="NoResults">No movies found for that search.</div>
+        )}
+      </section>
     </div>
   );
 }

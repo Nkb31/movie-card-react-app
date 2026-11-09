@@ -1,47 +1,101 @@
-.navbar {
-  background-color: #000000;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar div {
-  display: flex;
-  gap: 2rem;
-}
-
-.navbar a {
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  color: rgba(255, 255, 255, 0.87);
-  text-decoration: none;
-}
-
-.navbar a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-  }
-
-  .navbar div {
-    gap: 1rem;
-  }
-
-  .navbar a {
-    padding: 0.5rem;
-  }
-}
-.navbar {
+.topbar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(9, 14, 24, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #f8fafc;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.7rem;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar a,
+.favorites-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  color: rgba(226, 232, 240, 0.82);
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar a:hover,
+.favorites-pill:hover {
+  background: rgba(148, 163, 184, 0.08);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.favorites-pill {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #f5f3ff;
+}
+
+.favorites-pill span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.35rem;
+  border-radius: 50%;
+  background: #ec4899;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .brand {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navbar {
+    width: 100%;
+    justify-content: center;
+    order: 3;
+  }
+
+  .favorites-pill {
+    order: 2;
+  }
 }
