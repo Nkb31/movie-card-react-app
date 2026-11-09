@@ -81,6 +81,22 @@ describe("movie app", () => {
     expect(posterTitles.length).toBeGreaterThan(0);
   });
 
+  it("shows recommendations when the search field is focused", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    const input = await screen.findByLabelText(/search for movies/i);
+    expect(screen.queryByText(/trending matches/i)).not.toBeInTheDocument();
+
+    await user.click(input);
+    expect(screen.getByText(/trending matches/i)).toBeInTheDocument();
+  });
+
   it("searches movies by title", async () => {
     const user = userEvent.setup();
 
@@ -138,6 +154,9 @@ describe("movie app", () => {
 
     expect(await screen.findByRole("heading", { name: /my favorites/i })).toBeInTheDocument();
     expect(screen.getByText(/no favorite movies yet/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("link", { name: /browse movies/i }));
+    expect(await screen.findByRole("heading", { name: /find your next favorite film/i })).toBeInTheDocument();
   });
 
   it("allows toggling favorites from a movie card", async () => {

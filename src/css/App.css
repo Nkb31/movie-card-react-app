@@ -1,14 +1,12 @@
 .app-shell {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(96, 165, 250, 0.14), transparent 28%),
-    linear-gradient(180deg, rgba(5, 11, 20, 0.96), rgba(11, 18, 30, 1));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(233, 243, 241, 0.4));
 }
 
 .Mainc {
   width: min(1280px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 7rem 0 3rem;
+  padding: 7.5rem 0 3rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -17,6 +15,12 @@
 @media (max-width: 768px) {
   .Mainc {
     width: min(100% - 24px, 1280px);
-    padding-top: 6.5rem;
+    padding-top: 7.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .Mainc {
+    padding-top: 8rem;
   }
 }

@@ -1,7 +1,7 @@
 .favorites-page {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
   width: 100%;
 }
 
@@ -17,6 +17,7 @@
   margin: 0;
   font-size: clamp(2rem, 3vw, 3rem);
   line-height: 1.1;
+  letter-spacing: -0.04em;
 }
 
 .favorites-header span {
@@ -24,9 +25,9 @@
   align-items: center;
   padding: 0.5rem 0.8rem;
   border-radius: 999px;
-  background: rgba(74, 222, 128, 0.1);
-  border: 1px solid rgba(74, 222, 128, 0.22);
-  color: #bbf7d0;
+  background: rgba(66, 176, 187, 0.1);
+  border: 1px solid rgba(51, 150, 160, 0.22);
+  color: #24616a;
   font-weight: 700;
 }
 
@@ -34,9 +35,9 @@
   display: grid;
   place-items: center;
   min-height: 260px;
-  border-radius: 24px;
-  border: 1px dashed rgba(148, 163, 184, 0.34);
-  background: rgba(15, 23, 42, 0.45);
+  border-radius: 20px;
+  border: 1px dashed rgba(49, 88, 96, 0.28);
+  background: rgba(255, 255, 255, 0.78);
   text-align: center;
   padding: 2rem;
 }
@@ -49,8 +50,25 @@
 .empty-state p {
   max-width: 32rem;
   margin: 0;
-  color: rgba(203, 213, 225, 0.8);
+  color: #4b646c;
   line-height: 1.7;
+}
+
+.empty-state__action {
+  display: inline-flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  padding: 0.8rem 1.1rem;
+  border-radius: 12px;
+  background: #258f9e;
+  color: #fff;
+  font-weight: 700;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.empty-state__action:hover {
+  background: #1d7886;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 640px) {

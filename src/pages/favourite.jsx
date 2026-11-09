@@ -1,4 +1,5 @@
 import "../css/Favorites.css";
+import { Link } from "react-router-dom";
 import { useMovieContexts } from "../contexts/useMovieContext";
 import Mc from "../components/Card";
 
@@ -29,6 +30,9 @@ function Fav() {
         <div className="empty-state">
           <h2>No favorite movies yet.</h2>
           <p>Save a few titles from the home page and they will appear here.</p>
+          <Link className="empty-state__action" to="/">
+            Browse movies
+          </Link>
         </div>
       )}
     </div>

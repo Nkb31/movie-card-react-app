@@ -8,10 +8,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem clamp(1rem, 3vw, 2rem);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
-  background: rgba(9, 14, 24, 0.8);
-  backdrop-filter: blur(12px);
+  padding: 0.85rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid rgba(49, 88, 96, 0.14);
+  background: rgba(247, 251, 250, 0.84);
+  backdrop-filter: blur(20px) saturate(125%);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
 }
 
 .brand {
@@ -21,7 +22,7 @@
   font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.04em;
-  color: #f8fafc;
+  color: #19353d;
 }
 
 .brand-mark {
@@ -30,8 +31,9 @@
   width: 2rem;
   height: 2rem;
   border-radius: 0.7rem;
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
-  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, #39aebb, #e89a69);
+  color: white;
+  box-shadow: 0 8px 20px rgba(50, 155, 175, 0.2);
 }
 
 .navbar {
@@ -48,28 +50,28 @@
   gap: 0.6rem;
   padding: 0.8rem 1rem;
   border-radius: 999px;
-  color: rgba(226, 232, 240, 0.82);
+  color: #49616a;
   font-weight: 600;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-link:hover,
 .favorites-pill:hover {
-  background: rgba(148, 163, 184, 0.08);
-  color: #fff;
+  background: rgba(52, 126, 138, 0.08);
+  color: #173840;
   transform: translateY(-1px);
 }
 
 .nav-link--active {
-  background: rgba(139, 92, 246, 0.12);
-  color: #f5f3ff;
-  border: 1px solid rgba(167, 139, 250, 0.25);
+  background: rgba(66, 176, 187, 0.13);
+  color: #173840;
+  border: 1px solid rgba(51, 150, 160, 0.22);
 }
 
 .favorites-pill {
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(167, 139, 250, 0.3);
-  color: #f5f3ff;
+  background: rgba(66, 176, 187, 0.1);
+  border: 1px solid rgba(51, 150, 160, 0.22);
+  color: #173840;
 }
 
 .favorites-pill span {
@@ -79,29 +81,30 @@
   height: 1.5rem;
   padding: 0 0.35rem;
   border-radius: 50%;
-  background: #ec4899;
+  background: #d98254;
+  color: white;
   font-size: 0.75rem;
   line-height: 1;
 }
 
 @media (max-width: 640px) {
   .topbar {
-    flex-wrap: wrap;
-    justify-content: center;
+    padding-block: 0.7rem;
   }
 
   .brand {
-    width: 100%;
-    justify-content: center;
+    font-size: 1.05rem;
   }
 
   .navbar {
-    width: 100%;
-    justify-content: center;
-    order: 3;
+    gap: 0.15rem;
   }
 
   .favorites-pill {
-    order: 2;
+    display: none;
+  }
+
+  .nav-link {
+    padding: 0.65rem 0.75rem;
   }
 }

@@ -2,21 +2,21 @@
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #edf6ff;
-  background: #050b14;
-  --bg-900: #050b14;
-  --bg-800: #0a1321;
-  --bg-700: #111c2d;
-  --panel: rgba(17, 28, 45, 0.8);
-  --panel-soft: rgba(15, 23, 42, 0.76);
-  --line: rgba(148, 163, 184, 0.22);
-  --line-strong: rgba(148, 163, 184, 0.38);
-  --text: #edf6ff;
-  --text-soft: rgba(191, 219, 254, 0.76);
-  --text-muted: rgba(148, 163, 184, 0.9);
-  --brand-1: #8b5cf6;
-  --brand-2: #ec4899;
-  --brand-3: #60a5fa;
+  color: #19353d;
+  background: #f1f6f5;
+  --bg-900: #f1f6f5;
+  --bg-800: #e8f0ef;
+  --bg-700: #dce8e7;
+  --panel: rgba(255, 255, 255, 0.82);
+  --panel-soft: rgba(248, 251, 250, 0.9);
+  --line: rgba(49, 88, 96, 0.16);
+  --line-strong: rgba(49, 88, 96, 0.28);
+  --text: #19353d;
+  --text-soft: #4b646c;
+  --text-muted: #607981;
+  --brand-1: #188c9a;
+  --brand-2: #d98254;
+  --brand-3: #438eaa;
   --success: #4ade80;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #9ab6b8 #e8f0ef;
 }
 
 html,
@@ -45,8 +46,8 @@ body {
   width: 100%;
   margin: 0;
   background:
-    radial-gradient(circle at top, rgba(139, 92, 246, 0.18), transparent 25%),
-    radial-gradient(circle at right, rgba(59, 130, 246, 0.14), transparent 28%),
+    radial-gradient(ellipse at 18% 0%, rgba(91, 183, 190, 0.16), transparent 34rem),
+    radial-gradient(ellipse at 92% 18%, rgba(225, 160, 119, 0.12), transparent 30rem),
     var(--bg-900);
   color: var(--text);
 }
@@ -66,7 +67,30 @@ a {
   text-decoration: none;
 }
 
+::selection {
+  color: #12363d;
+  background: #a8e1df;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #168b99;
+  outline-offset: 3px;
+}
+
 button {
   border: none;
   background: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

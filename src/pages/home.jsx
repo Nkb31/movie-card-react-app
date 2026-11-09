@@ -8,6 +8,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(-1);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -128,6 +129,8 @@ function Home() {
                 type="text"
                 placeholder="Search for a movie"
                 value={searchQ}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
                 onChange={(e) => {
                   setSearchQ(e.target.value);
                   setActiveSuggestionIndex(-1);
@@ -136,7 +139,7 @@ function Home() {
                 aria-label="Search for movies"
               />
 
-              {recommendations.length > 0 ? (
+              {isSearchFocused && recommendations.length > 0 ? (
                 <div className="search-recommendations" aria-live="polite">
                   {searchQ.trim() ? null : (
                     <span className="search-suggestion search-suggestion--muted">Trending matches</span>
@@ -147,6 +150,7 @@ function Home() {
                       key={movie.id}
                       type="button"
                       className={`search-suggestion ${index === activeSuggestionIndex ? "search-suggestion--active" : ""}`}
+                      onMouseDown={(e) => e.preventDefault()}
                       onClick={() => handleSuggestionClick(movie.title)}
                     >
                       {movie.title}
